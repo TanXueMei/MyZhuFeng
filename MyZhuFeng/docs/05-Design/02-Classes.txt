@@ -1,0 +1,24 @@
+1. 基础框架
+
+    BaseActivity : 作为整个软件中所有Activity的父类
+                   提供一些软件中所有Activity全局的功能；由开发人员创建；
+
+    MainActivity : 主界面
+
+        主界面在切换Fragment的时候，如果采用 replace，那么，会频繁的销毁Fragment
+        采用 hide() show() 可以让Fragment 隐藏和显示。
+
+        特点：第一次启动会加载所有的Fragment
+
+2. 第一级Fragment
+
+    DiscoverFragment    发现页面
+
+        DiscoverRecommendFragment 发现推荐页面
+
+        DiscoverCategoryFragment 发现的分类界面
+
+
+3. tasks 包 包含异步任务回调接口机制的定义
+
+    TaskCallback  回调接口，Fragment/Activity 实现这个接口，来接收数据

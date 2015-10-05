@@ -14,7 +14,10 @@ import java.util.LinkedList;
 
 import myzhufeng.mydex.com.myzhufeng.R;
 import myzhufeng.mydex.com.myzhufeng.adapters.CommonFragmentAdapter;
+import myzhufeng.mydex.com.myzhufeng.fragments.discovers.DiscoverAnchorFragment;
 import myzhufeng.mydex.com.myzhufeng.fragments.discovers.DiscoverCategoryFragment;
+import myzhufeng.mydex.com.myzhufeng.fragments.discovers.DiscoverDrectFragment;
+import myzhufeng.mydex.com.myzhufeng.fragments.discovers.DiscoverListFragment;
 import myzhufeng.mydex.com.myzhufeng.fragments.discovers.DiscoverRecommendFragment;
 
 /**
@@ -57,12 +60,11 @@ public class DiscoverFragment extends Fragment implements TabLayout.OnTabSelecte
            tabLayout.setOnTabSelectedListener(this);
 
         LinkedList<Fragment> fragments = new LinkedList<Fragment>();
-        fragments.add(new DiscoverRecommendFragment());
-        fragments.add(new DiscoverCategoryFragment());
-
+            fragments.add(new DiscoverRecommendFragment());
             fragments.add(new DiscoverCategoryFragment());
-            fragments.add(new DiscoverCategoryFragment());
-            fragments.add(new DiscoverCategoryFragment());
+            fragments.add(new DiscoverDrectFragment());
+            fragments.add(new DiscoverListFragment());
+            fragments.add(new DiscoverAnchorFragment());
 
         CommonFragmentAdapter adapter = new CommonFragmentAdapter(getChildFragmentManager(), fragments);
         pager.setAdapter(adapter);

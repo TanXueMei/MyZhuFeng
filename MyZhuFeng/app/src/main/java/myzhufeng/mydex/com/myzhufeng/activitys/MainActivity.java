@@ -1,4 +1,4 @@
-package myzhufeng.mydex.com.myzhufeng;
+package myzhufeng.mydex.com.myzhufeng.activitys;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,6 +10,7 @@ import android.widget.RadioGroup;
 import java.util.LinkedList;
 import java.util.List;
 
+import myzhufeng.mydex.com.myzhufeng.R;
 import myzhufeng.mydex.com.myzhufeng.fragments.CustomFragment;
 import myzhufeng.mydex.com.myzhufeng.fragments.DiscoverFragment;
 import myzhufeng.mydex.com.myzhufeng.fragments.DownloadFragment;

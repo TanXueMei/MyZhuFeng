@@ -4,17 +4,32 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ting"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
+        <!-- 应用程序的入口点  扉页 -->
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <!-- 从扉页跳转到主程序 -->
+        <activity
+            android:name=".activitys.MainActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".activitys.WelcomeActivity"
+            android:label="@string/title_activity_welcome" >
+        </activity>
+        <activity
+            android:name=".activitys.BaseActivity"
+            android:label="@string/title_activity_base" >
         </activity>
     </application>
 

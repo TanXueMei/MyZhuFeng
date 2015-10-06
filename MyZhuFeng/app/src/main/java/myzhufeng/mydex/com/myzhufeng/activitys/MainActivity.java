@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -98,4 +99,23 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         transaction.commit();
 
     }
+
+    //两次返回的提示退出
+
+    //后退键上一次点击的时间
+    private long lastPressedTime;
+
+    @Override
+    public void onBackPressed() {
+        //利用上一次，和本次的时间，进行对比，只要在2s之内，就默认为点击了两次，直接退出
+        long lg=System.currentTimeMillis();
+        if(lg-lastPressedTime<=2000){
+            finish();
+        }else {
+            Toast.makeText(this,"再按一下退出",Toast.LENGTH_SHORT).show();;
+            lastPressedTime=lg;
+        }
+    }
+
+
 }

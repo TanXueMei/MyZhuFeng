@@ -31,6 +31,16 @@
             android:name=".activitys.BaseActivity"
             android:label="@string/title_activity_base" >
         </activity>
+
+
+        <!-- ContentProvider 定义 用于本地数据的访问 -->
+        <provider
+            android:name=".provider.DataProvider"
+            android:authorities="com.mydex.myzhufeng.dataprovider"
+            android:enabled="true"
+            android:exported="false"
+            />
+
     </application>
 
 </manifest>

@@ -30,7 +30,7 @@ import myzhufeng.mydex.com.myzhufeng.tasks.TaskResult;
 /**
  * Created by beyond on 2015/10/3.
  */
-public class DiscoverFragment extends Fragment implements TabLayout.OnTabSelectedListener, TaskCallBack {
+public class DiscoverFragment extends Fragment implements TabLayout.OnTabSelectedListener {
 
     private ViewPager pager;
     private TabLayout tabLayout;
@@ -46,8 +46,8 @@ public class DiscoverFragment extends Fragment implements TabLayout.OnTabSelecte
         if (tabLayout != null) {
           ///////////////////////////////////////////
             //调用异步任务，获取tabs的值
-            DiscoveryTabsTask task=new DiscoveryTabsTask(this);
-                 task.execute();
+//                       DiscoveryTabsTask task=new DiscoveryTabsTask(this);
+//                 task.execute();
 
 
             //////////////////////////////////////
@@ -105,20 +105,20 @@ public class DiscoverFragment extends Fragment implements TabLayout.OnTabSelecte
     }
 ////////////////////////////////////////////////////
     //异步任务获取值回调的方法
-    @Override
-    public void onTaskFinished(TaskResult result) {
-if(result!=null){
-    int action=result.action;
-    switch (action){
-        case Constants.TASK_ACTION_DISCOVERY_TABS:
-            setupTabs((JSONObject)result.data);
-            break;
-    }
-}
-
-    }
-
-    private void setupTabs(JSONObject data) {
-        Log.d("Discovery", "Tabs " + data);
-    }
+//    @Override
+//    public void onTaskFinished(TaskResult result) {
+//if(result!=null){
+//    int action=result.action;
+//    switch (action){
+//        case Constants.TASK_ACTION_DISCOVERY_TABS:
+//            setupTabs((JSONObject)result.data);
+//            break;
+//    }
+//}
+//
+//    }
+//
+//    private void setupTabs(JSONObject data) {
+//        Log.d("Discovery", "Tabs " + data);
+//    }
 }

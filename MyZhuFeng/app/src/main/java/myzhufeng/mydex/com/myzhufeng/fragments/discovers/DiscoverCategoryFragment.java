@@ -32,51 +32,61 @@ import myzhufeng.mydex.com.myzhufeng.tasks.TaskResult;
  * Created by beyond on 2015/10/3.
  */
 public class DiscoverCategoryFragment extends Fragment implements TaskCallBack {
-   private Context context;
+
     private ListView categoryListView;
     private DiscoverCategoryAdaper adaper;
     private LinkedList<Category> categoryLinkedList;
     public DiscoverCategoryFragment(){}
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        categoryLinkedList = new LinkedList<Category>();
+
+        Context context = getContext();
+
+        ContentResolver resolver = context.getContentResolver();
+
+        // 利用onCreate 一次调用的方式，从数据库 Provider 查询上一次获取的 分类列表，然后
+        // 解析，并且显示，显示之后，再开启网络，进行加载
+
+        Cursor cursor = resolver.query(
+                DatabaseContract.DiscoverCategories.CONTENT_URI,
+                null,
+                null,
+                null,
+                DatabaseContract.DiscoverCategories.ORDER_NUM + " ASC" // 升序排列 按照 orderNum
+        );
+
+        if (cursor != null) {
+
+            while (cursor.moveToNext()) {
+
+                Category category = new Category();
+
+                // 内部解析 Cursor
+                category.parseCursor(cursor);
+
+                categoryLinkedList.add(category);
+
+            }
+
+            cursor.close();
+        }
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d("DiscoverCategoryFragment","进到了发现分类中");
+        Log.d("DiscoverCategoryFragment", "进到了发现分类中");
        View view=inflater.inflate(R.layout.fragment_discover_category, container, false);
         categoryListView= (ListView) view.findViewById(R.id.fragment_discover_category_listview);
-        categoryLinkedList=new LinkedList<Category>();
-
-        Category category=new Category();
-        TaskResult result=new TaskResult();
-        JSONObject jsonObject= (JSONObject) result.data;
-        if(jsonObject!=null){
-            try {
-                int code=jsonObject.getInt("ret");
-                if(code==0) {
-                    List<Category> categories = DataParser.parseDiscoverCategories(jsonObject);
-                    if(categories!=null){
-                        categoryLinkedList.clear();
-
-                        categoryLinkedList.addAll(categories); // 直接添加
-
-                       // adapter.notifyDataSetChanged();
-                    }
-                }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-        }
-        categoryLinkedList.add(category);
-        context=getContext();
+        adaper=new DiscoverCategoryAdaper(getContext(),categoryLinkedList);
+        categoryListView.setAdapter(adaper);
         DiscoverCategoryTask task=new DiscoverCategoryTask(this);
         task.execute();
-        Log.d("adapter", "context=" + context);
-        Log.d("adapter", "categoryLinkedList=" + categoryLinkedList);
-        adaper=new DiscoverCategoryAdaper(context,categoryLinkedList);
-        Log.d("adapter", "adaper=" + adaper);
-        categoryListView.setAdapter(adaper);
 
         return view;
     }
@@ -93,15 +103,20 @@ public class DiscoverCategoryFragment extends Fragment implements TaskCallBack {
 //更新分类列表
     private void setupCategories(JSONObject json) {
         Log.d("DiscoverCategoryFragment", "进到了发现分类中的异步任务setupCategories");
-if(json!=null){
-    try {
+    if(json!=null){
+      try {
         int code=json.getInt("ret");
         if(code==0){
             List<Category> categories= DataParser.parseDiscoverCategories(json);
             if(categories!=null){
                 categoryLinkedList.clear();
                 categoryLinkedList.addAll(categories);
-                adaper.notifyDataSetChanged();}
+                adaper.notifyDataSetChanged();
+
+                saveCategories(categories);
+            }else{
+                //显示错误信息
+            }
         }
 
     } catch (JSONException e) {
@@ -110,4 +125,31 @@ if(json!=null){
 }
 
     }
+    /**
+     * 保存从网络获取的分类，存储到ContentProvider
+     *
+     * @param categories
+     */
+    private void saveCategories(List<Category> categories) {
+        if (categories != null) {
+
+            Context context = getContext();
+            if (context != null) {
+                ContentResolver resolver = context.getContentResolver();
+                for (Category category : categories) {
+                    try {
+                        resolver.insert(
+                                DatabaseContract.DiscoverCategories.CONTENT_URI,
+                                category.prepareValues()
+                        );
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+
+        }
+    }
+
+
 }

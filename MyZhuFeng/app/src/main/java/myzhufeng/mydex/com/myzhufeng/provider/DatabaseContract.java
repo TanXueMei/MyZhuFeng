@@ -31,16 +31,15 @@ public class DatabaseContract {
         public static final String IS_FINISHED = "is_finished";
         public static final String CONTENT_TYPE = "content_type";
 
+        //Uri部分
+        // content://com.mydex.myzhufeng.dataprovider/d_categories
+        public static final Uri CONTENT_URI=
+                Uri.parse("content://"+BASE_AUTHORITY)
+                        .buildUpon()
+                        .appendPath(TABLE_DISCOVER_CATEGORIES)
+                        .build();
+
     }
-
-    //Uri部分
-    // content://com.mydex.myzhufeng.dataprovider/d_categories
- public static final Uri CONTENT_URI=
-         Uri.parse("content://"+BASE_AUTHORITY)
-         .buildUpon()
-         .appendPath(TABLE_DISCOVER_CATEGORIES)
-         .build();
-
 
 
 }

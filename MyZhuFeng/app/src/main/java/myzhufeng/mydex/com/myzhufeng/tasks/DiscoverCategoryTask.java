@@ -1,5 +1,7 @@
 package myzhufeng.mydex.com.myzhufeng.tasks;
 
+import android.util.Log;
+
 import myzhufeng.mydex.com.myzhufeng.Constants;
 import myzhufeng.mydex.com.myzhufeng.client.DiscoverClientAPI;
 
@@ -12,10 +14,11 @@ public class DiscoverCategoryTask extends BaseTask {
     }
     @Override
     protected TaskResult doInBackground(String... params) {
+        Log.d("DiscoverCategoryFragment", "进到了发现分类中的异步任务DiscoverCategoryTask");
         TaskResult result=new TaskResult();
         result.action= Constants.TASK_ACTION_DISCOVERY_CATEGORIES;
         result.data= DiscoverClientAPI.getDiscoveryCategories();
-
+        Log.d("DiscoverCategoryFragment", "DiscoverCategoryTask"+result);
         return result;
     }
 }

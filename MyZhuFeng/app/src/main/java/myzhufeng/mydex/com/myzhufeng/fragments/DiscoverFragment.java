@@ -50,6 +50,7 @@ public class DiscoverFragment extends Fragment implements TabLayout.OnTabSelecte
 //                 task.execute();
 
 
+
             //////////////////////////////////////
             TabLayout.Tab tab = tabLayout.newTab();
             tab.setText("推荐");

@@ -85,8 +85,6 @@ public final class HttpUtil {
               URL u=new URL(url);
               conn= (HttpURLConnection)u.openConnection();
               conn.setRequestMethod("GET");
-              conn.connect();
-
               int code=conn.getResponseCode();
               if(code==HttpURLConnection.HTTP_OK){
                   inputStream=conn.getInputStream();
